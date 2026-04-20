@@ -22,6 +22,8 @@ class TodoApiTests(unittest.TestCase):
         cls.server.shutdown()
         cls.server.server_close()
         cls.thread.join(timeout=2)
+        if cls.thread.is_alive():
+            raise RuntimeError("Server thread did not terminate cleanly")
 
     def setUp(self):
         TodoRequestHandler.store = TodoStore()

@@ -139,7 +139,7 @@ class TodoRequestHandler(BaseHTTPRequestHandler):
             return
 
         todo = self.store.update(
-            todo_id, title=title.strip() if isinstance(title, str) else None, completed=completed
+            todo_id, title=title.strip() if title is not None else None, completed=completed
         )
         if todo is None:
             self._send_json(404, {"error": "Todo not found"})
