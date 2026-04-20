@@ -75,10 +75,15 @@ class TodoApiTests(unittest.TestCase):
         self.assertEqual(status, 404)
         self.assertEqual(body, {"error": "Todo not found"})
 
-    def test_invalid_create_payload_returns_400(self):
+    def test_create_with_empty_title(self):
         status, body = self.request("POST", "/todos", {"title": ""})
         self.assertEqual(status, 400)
         self.assertEqual(body, {"error": "title is required"})
+
+    def test_create_without_body(self):
+        status, body = self.request("POST", "/todos")
+        self.assertEqual(status, 400)
+        self.assertEqual(body, {"error": "Invalid JSON body"})
 
 
 if __name__ == "__main__":
